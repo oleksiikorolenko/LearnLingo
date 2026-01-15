@@ -3,6 +3,7 @@ import Home from "./pages/Home";
 import Teachers from "./pages/Teachers";
 import Favorites from "./pages/Favorites";
 import Layout from "./components/Layout";
+import PrivateRoute from "./auth/PrivatRoute";
 
 function App() {
   
@@ -12,7 +13,10 @@ function App() {
         <Route path="/" element={<Layout />}>
         <Route index element={<Home />} />
         <Route path="/teachers" element={<Teachers />} />
-        <Route path="/favorites" element={<Favorites />} />
+        <Route path="/favorites" element={
+          <PrivateRoute>
+          <Favorites />
+          </PrivateRoute>} />
         </Route>
       </Routes>
     </BrowserRouter>
