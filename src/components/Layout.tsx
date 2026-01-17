@@ -1,7 +1,7 @@
 import { Outlet, NavLink } from "react-router-dom";
 import { useState } from "react";
 import Modal from "./Modal/Modal";
-import AuthForm from "./AuthForm/Authform.tsx";
+import AuthForm from "./AuthForm/AuthForm.tsx";
 
 const Layout = () => {
   const [isOpen, setIsOpen] = useState(false);
