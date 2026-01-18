@@ -1,4 +1,4 @@
-import { ref, get, query, limitToFirst, startAfter} from 'firebase/database';
+import { ref, get, query, limitToFirst, startAfter, orderByKey} from 'firebase/database';
 import { database } from './firebase';
 import type { Teacher } from '../types/teacher.ts';
 
@@ -6,8 +6,8 @@ export const getTeachers = async (limit = 4, lastKey?: string): Promise<Teacher[
   const teachersRef = ref(database, 'teachers');
 
   const q = lastKey
-  ? query(teachersRef, startAfter(lastKey), limitToFirst(limit))
-  : query(teachersRef, limitToFirst(limit));
+  ? query(teachersRef, orderByKey(),startAfter(lastKey), limitToFirst(limit))
+  : query(teachersRef, orderByKey(), limitToFirst(limit));
 
   const snapshot = await get(q);
 

@@ -1,6 +1,7 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { getTeachers } from "../services/teachers.ts";
 import TeacherCard from "../components/TeacherCard/TeacherCard.tsx";
+
 
 export interface Teacher {
   id: string;
@@ -24,6 +25,7 @@ const Teachers = () => {
     const[teachers, setTeachers] = useState<Teacher[]>([]);
     const[lastKey, setLastKey] = useState<string | null>(null);
     const[isLoading, setIsLoading] = useState(false);
+    const isInitialLoad = useRef(false)
     
     
  const loadTeachers = async () => {
@@ -42,6 +44,8 @@ setIsLoading(false);
 };
 
    useEffect(() => {
+    if(isInitialLoad.current) return;
+    isInitialLoad.current = true;
   loadTeachers();
    // eslint-disable-next-line react-hooks/exhaustive-deps
 }, []);
