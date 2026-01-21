@@ -13,3 +13,5 @@ export interface Teacher {
   conditions: string;
   experience: string;
 }
+
+export type FavoriteTeacherId = string;

@@ -2,7 +2,13 @@ import { Navigate } from "react-router-dom";
 import { useAuth } from "./useAuth.ts";
 import type { ReactNode } from "react";
 
-export const PrivateRoute = ({ children }: { children: ReactNode }) => {
+interface PrivateRouteProps {
+    children: ReactNode;
+}
+
+
+
+export const PrivateRoute = ({ children }: PrivateRouteProps) => {
     const { user, isLoading } = useAuth();
 
     if(isLoading) {

@@ -1,7 +1,8 @@
 import type { Teacher } from "../../types/teacher.ts";
-import { toggleFavorite, isFavorite } from "../../utils/favorites.ts";
+// import { toggleFavorite, isFavorite } from "../../utils/favorites.ts";
 import { useAuth } from "../../auth/useAuth.ts";
 import { useState } from "react";
+import { addFavorite, removeFavorite, isFavorite } from "../../utils/favoritesStorage.ts";
 
 
 interface Props {
@@ -10,20 +11,28 @@ interface Props {
 
 const TeacherCard = ({teacher}: Props) => {
     const [isExpanded, setIsExpanded] = useState(false);
-
+const favorite = isFavorite(teacher.id);
     const {user} = useAuth();
+    const [favoriteState, setFavoriteState] = useState<boolean>(favorite);
 
-    const favorite = user
-    ? isFavorite(user.uid, teacher.id)
-    : false;
+    // const favorite = user
+    // ? isFavorite(user.uid, teacher.id)
+    // : false;
 
     const handleFavorite = () => {
         if(!user) {
             alert('This feature is available only for authorized users');
             return;
         }
+if (favoriteState) {
+  removeFavorite(teacher.id);
+  setFavoriteState(false);
+} else {
+  addFavorite(teacher.id);
+  setFavoriteState(true);
+}
 
-        toggleFavorite(user.uid, teacher);
+        // toggleFavorite(user.uid, teacher);
     }
 
     const {
@@ -41,7 +50,7 @@ const TeacherCard = ({teacher}: Props) => {
     return (
         <article>
             <button onClick={handleFavorite}>
-  {favorite ? '❤️' : '🤍'}
+  {favoriteState ? '❤️' : '🤍'}
 </button>
           <img src={avatar_url} alt={`${name} ${surname}`} width={96} height={96} />
 
