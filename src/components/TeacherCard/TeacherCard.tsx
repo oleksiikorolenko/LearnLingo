@@ -3,6 +3,8 @@ import type { Teacher } from "../../types/teacher.ts";
 import { useAuth } from "../../auth/useAuth.ts";
 import { useState } from "react";
 import { addFavorite, removeFavorite, isFavorite } from "../../utils/favoritesStorage.ts";
+import Modal from '../Modal/Modal.tsx';
+import BookTrialForm from '../BookTrialForm/BookTrialForm.tsx';
 
 
 interface Props {
@@ -14,6 +16,7 @@ const TeacherCard = ({teacher}: Props) => {
 const favorite = isFavorite(teacher.id);
     const {user} = useAuth();
     const [favoriteState, setFavoriteState] = useState<boolean>(favorite);
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
     // const favorite = user
     // ? isFavorite(user.uid, teacher.id)
@@ -77,6 +80,14 @@ if (favoriteState) {
                     <p>{lesson_info}</p>
                     <p><strong>Experience:</strong> {experience}</p>
                 </>
+            )}
+            <button onClick={() => setIsModalOpen(true)}>
+  Book trial lesson
+</button>
+            {isModalOpen && (
+                <Modal onClose={() => setIsModalOpen(false)}>
+                    <BookTrialForm />
+                </Modal>
             )}
         </article>
     )
