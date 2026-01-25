@@ -1,5 +1,4 @@
-import { useEffect, useState, useRef } from "react";
-import { getTeachers } from "../services/teachers.ts";
+
 import TeacherCard from "../components/TeacherCard/TeacherCard.tsx";
 
 
@@ -19,37 +18,14 @@ export interface Teacher {
   experience: string;
 }
 
-const TEACHERS_LIMIT = 4;
-
-const Teachers = () => {
-    const[teachers, setTeachers] = useState<Teacher[]>([]);
-    const[lastKey, setLastKey] = useState<string | null>(null);
-    const[isLoading, setIsLoading] = useState(false);
-    const isInitialLoad = useRef(false)
-    
-    
- const loadTeachers = async () => {
-    setIsLoading(true);
-
-
-const data: Teacher[] = await getTeachers(TEACHERS_LIMIT, lastKey ?? undefined);
-
-setTeachers(prev => [...prev, ...data]);
-
-if(data.length > 0) {
-    setLastKey(data[data.length - 1].id);
+interface TeachersProps {
+    teachers: Teacher[];
+    isLoading: boolean;
+    onLoadMore: () => void;
 }
 
-setIsLoading(false);
-};
-
-   useEffect(() => {
-    if(isInitialLoad.current) return;
-    isInitialLoad.current = true;
-  loadTeachers();
-   // eslint-disable-next-line react-hooks/exhaustive-deps
-}, []);
-
+const Teachers = ({ teachers, isLoading, onLoadMore }: TeachersProps) => {
+   
     return (
     <section>
     <h2>Teachers</h2>
@@ -63,7 +39,7 @@ setIsLoading(false);
     </ul>
 
     {teachers.length > 0 && (
-        <button onClick={loadTeachers} disabled={isLoading}>Load more</button>
+        <button onClick={onLoadMore} disabled={isLoading}>Load more</button>
     )}
     </section>
     );

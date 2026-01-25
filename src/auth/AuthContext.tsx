@@ -18,7 +18,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         return unsubscribe;
     }, []);
 
-    const register = async (email: string, password: string) => {
+    const signUp = async (email: string, password: string) => {
         await createUserWithEmailAndPassword(auth, email, password);
     };
 
@@ -31,7 +31,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     };
 
     return (
-        <AuthContext.Provider value={{ user, isLoading, register, login, logout }}>
+        <AuthContext.Provider value={{ user, isLoading, signUp, login, logout }}>
             {children}
         </AuthContext.Provider>
     );

@@ -8,8 +8,11 @@ interface Props {
     teachers: Teacher[];
 }
 
-const Favorites = ({ teachers }: Props) => {
-    const [favoriteIds] = useState<string[]>(() => getFavorites());
+const Favorites = ({ teachers}: Props) => {
+    const [favoriteIds, setFavoriteIds] = useState<string[]>(() => getFavorites());
+
+    console.log("FAVORITE IDS:", favoriteIds);
+    console.log("ALL TEACHERS:", teachers);
 
     
 
@@ -27,6 +30,9 @@ const Favorites = ({ teachers }: Props) => {
                 <TeacherCard 
                 key={teacher.id} 
                 teacher={teacher}
+                onToggleFavorite={() => {
+                    setFavoriteIds(getFavorites());
+                }}
               />
             ))}
         </section>    )

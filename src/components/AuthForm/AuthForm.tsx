@@ -18,7 +18,7 @@ const schema = yup.object({
 });
 
 const AuthForm = ({onSuccess}: AuthFormProps) => {
-    const { login, register} = useAuth();
+    const { login, signUp } = useAuth();
     const{
         register: formregister, handleSubmit,
         formState: {errors},
@@ -31,7 +31,7 @@ const AuthForm = ({onSuccess}: AuthFormProps) => {
             await login(data.email, data.password);
             onSuccess();        
         } catch {
-            await register(data.email, data.password);
+            await signUp(data.email, data.password);
             onSuccess();
         }
     };

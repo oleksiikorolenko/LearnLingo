@@ -9,12 +9,14 @@ import BookTrialForm from '../BookTrialForm/BookTrialForm.tsx';
 
 interface Props {
     teacher: Teacher;
+    onToggleFavorite?: () => void;
 }
 
-const TeacherCard = ({teacher}: Props) => {
+const TeacherCard = ({teacher, onToggleFavorite}: Props) => {
     const [isExpanded, setIsExpanded] = useState(false);
 const favorite = isFavorite(teacher.id);
     const {user} = useAuth();
+    console.log("USER:", user);
     const [favoriteState, setFavoriteState] = useState<boolean>(favorite);
     const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -22,14 +24,18 @@ const favorite = isFavorite(teacher.id);
     // ? isFavorite(user.uid, teacher.id)
     // : false;
 
+    console.log('teacher id:', teacher.id);
+
     const handleFavorite = () => {
         if(!user) {
+            setIsModalOpen(true);
             alert('This feature is available only for authorized users');
             return;
         }
 if (favoriteState) {
   removeFavorite(teacher.id);
   setFavoriteState(false);
+  onToggleFavorite?.();
 } else {
   addFavorite(teacher.id);
   setFavoriteState(true);
