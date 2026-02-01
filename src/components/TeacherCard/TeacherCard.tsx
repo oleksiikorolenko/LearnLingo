@@ -5,6 +5,7 @@ import { useState } from "react";
 import { addFavorite, removeFavorite, isFavorite } from "../../utils/favoritesStorage.ts";
 import Modal from '../Modal/Modal.tsx';
 import BookTrialForm from '../BookTrialForm/BookTrialForm.tsx';
+import AuthForm from "../AuthForm/AuthForm.tsx";
 
 
 interface Props {
@@ -92,7 +93,15 @@ if (favoriteState) {
 </button>
             {isModalOpen && (
                 <Modal onClose={() => setIsModalOpen(false)}>
-                    <BookTrialForm />
+                    { !user ? (
+                        <AuthForm onSuccess={() => setIsModalOpen(false)}/>
+                    ) : (
+                        <BookTrialForm />
+                    )
+
+                }
+                    
+                    
                 </Modal>
             )}
         </article>
