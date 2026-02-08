@@ -1,0 +1,138 @@
+.teacherCard {
+  display: flex;
+  gap: 24px;
+  padding: 24px;
+  background: #fff;
+  border-radius: 16px;
+  margin-bottom: 24px;
+}
+
+.teacherAvatar {
+  flex-shrink: 0;
+}
+
+.teacherAvatar img {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #f4c550;
+}
+
+.teacherContent {
+  flex: 1;
+}
+
+.teacherHeader {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.label {
+  font-size: 14px;
+  color: #8a8a8a;
+}
+
+.teacherName {
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.teacherStats {
+  display: flex;
+  gap: 16px;
+  align-items: baseline;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  font-size: 14px;
+}
+
+.teacherStat{
+  font-family: var(--font-family);
+font-weight: 500;
+font-size: 16px;
+
+/* line-height: 24px; */ 
+line-height: 1.5;
+color: #121417;  
+}
+
+.rating{
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.price {
+  color: #38a169;
+  font-weight: 600;
+}
+
+.teacherContent p {
+  margin: 6px 0;
+  font-size: 14px;
+}
+
+.readMore {
+  margin-top: 8px;
+  background: none;
+  border: none;
+  color: #1a202c;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.experience {
+  margin-top: 12px;
+  font-size: 14px;
+}
+
+.levels {
+  display: flex;
+  gap: 8px;
+  margin: 16px 0;
+  padding: 0;
+  list-style: none;
+}
+
+.levelTag {
+  padding: 6px 12px;
+  border: 1px solid #ddd;
+  border-radius: 20px;
+  font-size: 12px;
+}
+
+.bookBtn {
+  background: #f4c550;
+  border: none;
+  padding: 14px 32px;
+  border-radius: 12px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.starIcon {
+  width: 16px;
+  height: 16px;
+  fill: #f4c550;
+ 
+}
+
+
+.favoriteBtn{
+    background: none;
+    fill: red;
+    border: none;
+    cursor: pointer;
+}
+
+.unfavoriteBtn{
+    background: none;
+    fill: none;
+    stroke: black;
+    border: none;
+    cursor: pointer;
+}

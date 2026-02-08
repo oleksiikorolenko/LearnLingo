@@ -6,6 +6,7 @@ import { addFavorite, removeFavorite, isFavorite } from "../../utils/favoritesSt
 import Modal from '../Modal/Modal.tsx';
 import BookTrialForm from '../BookTrialForm/BookTrialForm.tsx';
 import AuthForm from "../AuthForm/AuthForm.tsx";
+import css from "./TeacherCard.module.css";
 
 
 interface Props {
@@ -58,53 +59,150 @@ if (favoriteState) {
 
 
     return (
-        <article>
-            <button onClick={handleFavorite}>
-  {favoriteState ? '❤️' : '🤍'}
-</button>
-          <img src={avatar_url} alt={`${name} ${surname}`} width={96} height={96} />
+//         <article>
+//             <button onClick={handleFavorite}>
+//   {favoriteState ? '❤️' : '🤍'}
+// </button>
+//           <img src={avatar_url} alt={`${name} ${surname}`} width={96} height={96} />
 
-            <h3>{name} {surname}</h3>
+//             <h3>{name} {surname}</h3>
 
-            <p>
-                <strong>Languages:</strong> {languages.join(", ")}
-            </p>
+//             <p>
+//                 <strong>Languages:</strong> {languages.join(", ")}
+//             </p>
 
-            <p>
-                <strong>Rating:</strong> {rating}
-            </p>
+//             <p>
+//                 <strong>Rating:</strong> {rating}
+//             </p>
 
-            <p>
-                <strong>Price:</strong>{price_per_hour}$/hour
-            </p>
+//             <p>
+//                 <strong>Price:</strong>{price_per_hour}$/hour
+//             </p>
 
-            <button onClick={() => setIsExpanded(prev => !prev)}>
-                {isExpanded ? "Show less" : "Read more"}
-            </button>
+//             <button onClick={() => setIsExpanded(prev => !prev)}>
+//                 {isExpanded ? "Show less" : "Read more"}
+//             </button>
+
+//             {isExpanded && (
+//                 <>
+//                     <p>{lesson_info}</p>
+//                     <p><strong>Experience:</strong> {experience}</p>
+//                 </>
+//             )}
+//             <button onClick={() => setIsModalOpen(true)}>
+//   Book trial lesson
+// </button>
+//             {isModalOpen && (
+//                 <Modal onClose={() => setIsModalOpen(false)}>
+//                     { !user ? (
+//                         <AuthForm onSuccess={() => setIsModalOpen(false)}/>
+//                     ) : (
+//                         <BookTrialForm />
+//                     )
+
+//                 }
+                    
+                    
+//                 </Modal>
+//             )}
+//         </article>
+ <article className={css.teacherCard}>
+      {/* LEFT */}
+      <div className={css.teacherAvatar}>
+        <img src={avatar_url} alt={`${name} ${surname}`} />
+      </div>
+
+      {/* RIGHT */}
+      <div className={css.teacherContent}>
+        {/* HEADER */}
+        <div className={css.teacherHeader}>
+          <div>
+            <span className={css.label}>Languages</span>
+            <h3 className={css.teacherName}>
+                {name} {surname}
+            </h3>
+          </div>
+
+          <ul className={css.teacherStats}>
+            <li className={css.teacherStat}>Lessons done: {teacher.lessons_done}</li>
+            <li className={`${css.teacherStat} ${css.rating}`}>
+                <span>
+                    <svg className={css.starIcon} width={16} height={16}>
+                        <use href="./public/symbol-defs.svg#icon-star"></use>
+                        </svg>
+                        </span>
+                        <span>Rating: {rating}
+                            </span>
+                            </li>
+            <li className={css.teacherStat}>
+              Price / 1 hour:{" "}
+              <span className={css.price}>{price_per_hour}$</span>
+            </li>
+            <li>  <button onClick={handleFavorite} className={favoriteState ? css.favoriteBtn : css.unfavoriteBtn}><svg className={css.heartIcon} width={26} height={26}><use href="./public/symbol-defs.svg#icon-normal"></use></svg>
+  
+ </button></li>
+          </ul>
+        </div>
+
+        {/* INFO */}
+        <p>
+          <strong>Speaks:</strong> {languages.join(", ")}
+        </p>
+        <p>
+          <strong>Lesson Info:</strong> {lesson_info}
+        </p>
+        <p>
+          <strong>Conditions:</strong> {teacher.conditions}
+        </p>
+
+        {/* EXPANDED */}
+         <button className={css.readMore} onClick={() => setIsExpanded(prev => !prev)}>
+                 {isExpanded ? "Show less" : "Read more"}
+           </button>
 
             {isExpanded && (
                 <>
-                    <p>{lesson_info}</p>
-                    <p><strong>Experience:</strong> {experience}</p>
-                </>
-            )}
-            <button onClick={() => setIsModalOpen(true)}>
-  Book trial lesson
-</button>
-            {isModalOpen && (
-                <Modal onClose={() => setIsModalOpen(false)}>
+                  
+                     <p>{experience}</p>
+                     <ul className={css.reviews}>
+              {teacher.reviews.map(review => (
+                <li  className={css.levelTag}>
+                  <p>{review.reviewer_name}</p>
+                  <p>{review.reviewer_rating}</p>
+                    <p>{review.comment}</p>
+
+                </li>
+              ))}
+            </ul>
+                     <button className={css.bookBtn} onClick={() => setIsModalOpen(true)}>
+   Book trial lesson
+ </button>
+                 </>
+             )}
+            <ul className={css.levels}>
+              {teacher.levels.map(level => (
+                <li key={level} className={css.levelTag}>
+                  #{level}
+                </li>
+              ))}
+            </ul>
+  
+             
+             {isModalOpen && (
+                 <Modal onClose={() => setIsModalOpen(false)}>
                     { !user ? (
                         <AuthForm onSuccess={() => setIsModalOpen(false)}/>
                     ) : (
                         <BookTrialForm />
-                    )
+                     )
 
                 }
                     
                     
                 </Modal>
-            )}
-        </article>
+           )} 
+      </div>
+    </article>
     )
 };
 

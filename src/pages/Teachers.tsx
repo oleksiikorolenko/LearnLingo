@@ -2,23 +2,24 @@
 
 import TeacherCard from "../components/TeacherCard/TeacherCard.tsx";
 import { useEffect, useState } from "react";
+import type { Teacher } from "../types/teacher.ts";
 
 
-export interface Teacher {
-  id: string;
-  name: string;
-  surname: string;
-  languages: string[];
-  levels: string[];
-  rating: number;
-  reviews: number;
-  price_per_hour: number;
-  lessons_done: number;
-  avatar_url: string;
-  lesson_info: string;
-  conditions: string;
-  experience: string;
-}
+// export interface Teacher {
+//   id: string;
+//   name: string;
+//   surname: string;
+//   languages: string[];
+//   levels: string[];
+//   rating: number;
+//   reviews: Reviews[];
+//   price_per_hour: number;
+//   lessons_done: number;
+//   avatar_url: string;
+//   lesson_info: string;
+//   conditions: string;
+//   experience: string;
+// }
 
 interface TeachersProps {
     teachers: Teacher[];
@@ -32,9 +33,9 @@ const savedFilters = localStorage.getItem("teacherFilters");
 const initialFilters = savedFilters
 ? JSON.parse(savedFilters)
 : {
-     selectedLanguage: "All",
-      selectedLevel: "All",
-      selectedPrice: "All",
+     selectedLanguage: "all",
+      selectedLevel: "all",
+      selectedPrice: "all",
 };
 
     const [selectedLanguage, setSelectedLanguage] = useState<string>(initialFilters.selectedLanguage);
@@ -51,21 +52,28 @@ const initialFilters = savedFilters
         localStorage.setItem("teacherFilters", JSON.stringify(filters))
     }, [selectedLanguage, selectedLevel, selectedPrice]);
 
+    
+
    
 
     const filteredTeachers = teachers.filter(teacher => {
-        const matchesLanguage = selectedLanguage === "All" || teacher.languages.includes(selectedLanguage);
+        const matchesLanguage = selectedLanguage === "all" || teacher.languages.includes(selectedLanguage);
 
-        const matchesLevel = selectedLevel === "All" || teacher.levels.includes(selectedLevel);
+        const matchesLevel = selectedLevel === "all" || teacher.levels.includes(selectedLevel);
 
-        const matchesPrice = selectedPrice === "All" || teacher.price_per_hour <= Number(selectedPrice);
-
+        const matchesPrice = selectedPrice === "all" || teacher.price_per_hour <= Number(selectedPrice);
         return matchesLanguage && matchesLevel && matchesPrice;
-    })
+    });
+
+    console.log("teachers:", teachers);
+console.log("filtered:", filteredTeachers);
+console.log("filters:", { selectedLanguage, selectedLevel, selectedPrice });
+
+
    
     return (
     <section>
-    <h2>Teachers</h2>
+   
     <div>
   <select value={selectedLanguage} onChange={e => setSelectedLanguage(e.target.value)}>
     <option value="all">All languages</option>
@@ -75,7 +83,7 @@ const initialFilters = savedFilters
   </select>
 
   <select value={selectedLevel} onChange={e => setSelectedLevel(e.target.value)}>
-    <option value="All">All levels</option>
+    <option value="all">All levels</option>
     <option value="A1 Beginner">A1 Beginner</option>
     <option value="A2 Elementary">A2 Elementary</option>
     <option value="B1 Intermediate">B1 Intermediate</option>

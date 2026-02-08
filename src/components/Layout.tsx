@@ -15,9 +15,9 @@ const Layout = () => {
     <>
     <header>
         <nav>
-            <NavLink to="/">Home</NavLink> | {" "}
-            <NavLink to="/teachers">Teachers</NavLink> | {" "}
-            <NavLink to="/favorites">Favorites</NavLink> | {" "}
+            <NavLink to="/">Home</NavLink>
+            <NavLink to="/teachers">Teachers</NavLink>
+            <NavLink to="/favorites">Favorites</NavLink>
           { user ? (
             <button onClick={logout}>Log out</button>
           ) : (

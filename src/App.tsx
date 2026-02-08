@@ -6,7 +6,7 @@ import Teachers from "./pages/Teachers";
 import Favorites from "./pages/Favorites";
 import Layout from "./components/Layout";
 import PrivateRoute from "./auth/PrivatRoute";
-import type { Teacher } from "./pages/Teachers";
+import type { Teacher } from "./types/teacher.ts";
 
 const TEACHERS_LIMIT = 4;
 
